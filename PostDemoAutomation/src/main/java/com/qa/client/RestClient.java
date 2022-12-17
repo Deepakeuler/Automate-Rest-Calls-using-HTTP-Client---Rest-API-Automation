@@ -19,7 +19,7 @@ public class RestClient {
         // Created new HttpGet connection with this URL
         HttpGet httpGet = new HttpGet(url); // http get request
         httpClient.execute(httpGet); // passed http get request object --> will do work like clicking send button in postman(Executes it)
-        
+
     }
 
 }
