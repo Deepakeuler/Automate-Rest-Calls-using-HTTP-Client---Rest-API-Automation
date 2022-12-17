@@ -1,1 +1,2 @@
-org/example/Main.class
+com/qa/client/RestClient.class
+com/qa/base/TestBase.class
