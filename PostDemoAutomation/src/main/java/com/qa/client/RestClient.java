@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class RestClient {
 
-    //1. GET Method
+    //1. GET Met
     public void get(String url) throws ClientProtocolException,IOException {
         //CloseableHttpClient --> Abstract class,  one method is there in HttpClients --> createDefault() : it will create an http default client
         CloseableHttpClient httpClient = HttpClients.createDefault();
