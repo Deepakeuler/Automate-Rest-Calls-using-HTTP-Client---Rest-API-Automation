@@ -15,8 +15,8 @@ import java.util.HashMap;
 
 public class RestClient {
 
-    //1. GET Met
-    public void get(String url) throws ClientProtocolException,IOException {
+    //1. GET Method
+    public CloseableHttpResponse get(String url) throws ClientProtocolException, IOException {
         //CloseableHttpClient --> Abstract class,  one method is there in
         // HttpClients --> createDefault() : it will create an http default client
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -30,25 +30,12 @@ public class RestClient {
         //CloseableHttpResponse is an interface --Executes a request using the default context and processes the response using the
         // given response handler. CloseableHttpResponse.execute(HttpUriRequest request) Executes HTTP request using the default context.
 
-        // Status Code
-        int statusCode = closeableHttpResponse.getStatusLine().getStatusCode();
-        System.out.println("Status Code is ----->"+statusCode);
 
-        // Json String response
-        String responseString = EntityUtils.toString(closeableHttpResponse.getEntity(), "UTF-8");//UTF-8 -> String default charSet
-        JSONObject responseJson= new JSONObject(responseString);//Converting rresponse string into Json obj
-        System.out.println("Response Json from API --->"+responseJson);
-
-        //all headers
-        Header[] headerArray = closeableHttpResponse.getAllHeaders();
-        HashMap<String, String> allHeaders = new HashMap<>();
-
-        for(int i = 0; i<headerArray.length; i++){
-            allHeaders.put(headerArray[i].getName(), headerArray[i].getValue());
-        }
-
-        System.out.println("Headers Array ---->"+allHeaders);
-
+        return closeableHttpResponse;
     }
+
+
+    //2. Get Method with Headers
+
 
 }
