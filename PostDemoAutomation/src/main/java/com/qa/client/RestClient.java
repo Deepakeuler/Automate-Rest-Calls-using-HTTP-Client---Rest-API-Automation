@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 public class RestClient {
 
@@ -23,9 +24,9 @@ public class RestClient {
 
         // Different classes are there for Http methods like HttpGet
         // Created new HttpGet connection with this URL
-        HttpGet httpGet = new HttpGet(url); // http get request
+        HttpGet httpGet = new HttpGet(url); //We're not hitting http get rtequest here, we're just creating a connection with this url
 
-        CloseableHttpResponse closeableHttpResponse = httpClient.execute(httpGet); // passed http get request object --> will do work like
+        CloseableHttpResponse closeableHttpResponse = httpClient.execute(httpGet);// passed http get request object --> will do work like
         // clicking send button in postman(Executes it)
         //CloseableHttpResponse is an interface --Executes a request using the default context and processes the response using the
         // given response handler. CloseableHttpResponse.execute(HttpUriRequest request) Executes HTTP request using the default context.
@@ -36,6 +37,20 @@ public class RestClient {
 
 
     //2. Get Method with Headers
+    //Passing header hashmap
+    public CloseableHttpResponse get(String url,HashMap<String,String> headerMap) throws ClientProtocolException, IOException {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(url);
+
+        //Before execution add headers also
+        for(Map.Entry<String, String> entry : headerMap.entrySet()){
+            httpGet.addHeader(entry.getKey(), entry.getValue());
+        }
+
+        CloseableHttpResponse closeableHttpResponse = httpClient.execute(httpGet);
+        return closeableHttpResponse;
+    }
+
 
 
 }

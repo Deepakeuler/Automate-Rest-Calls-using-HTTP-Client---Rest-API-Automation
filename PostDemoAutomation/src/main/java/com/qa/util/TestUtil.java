@@ -7,10 +7,10 @@ public class TestUtil {
 
     public static JSONObject responsejson;
 
-    public static String getValueByJPath(String jpath){
+    public static String getValueByJPath(JSONObject responsejson, String jpath) {
         Object obj = responsejson;
-        for(String  s: jpath.split("/")){
-            if(!s.isEmpty()) {
+        for (String s : jpath.split("/")) {
+            if (!s.isEmpty()) {
                 if (!(s.contains("[") || s.contains("]")))
                     obj = ((JSONObject) obj).get(s);
                 else if (s.contains("[") || s.contains("]")) ;
