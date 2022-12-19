@@ -5,12 +5,16 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +28,7 @@ public class RestClient {
 
         // Different classes are there for Http methods like HttpGet
         // Created new HttpGet connection with this URL
-        HttpGet httpGet = new HttpGet(url); //We're not hitting http get rtequest here, we're just creating a connection with this url
+        HttpGet httpGet = new HttpGet(url); //We're not hitting http get request here, we're just creating a connection with this url
 
         CloseableHttpResponse closeableHttpResponse = httpClient.execute(httpGet);// passed http get request object --> will do work like
         // clicking send button in postman(Executes it)
@@ -38,7 +42,7 @@ public class RestClient {
 
     //2. Get Method with Headers
     //Passing header hashmap
-    public CloseableHttpResponse get(String url,HashMap<String,String> headerMap) throws ClientProtocolException, IOException {
+    public CloseableHttpResponse get(String url, @NotNull HashMap<String,String> headerMap) throws ClientProtocolException, IOException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);
 
@@ -51,6 +55,20 @@ public class RestClient {
         return closeableHttpResponse;
     }
 
+    //3.POST Method
+    public CloseableHttpResponse post(String url, String entityString, HashMap<String,String> headerMap) throws IOException {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpost = new HttpPost(url);//Creating http post request
+        //entityString --> payload -> we'll create this payload in the form of json in our test class
+        httpost.setEntity(new StringEntity(entityString));//setEntity method is used to define the payload
 
+        //Header
+        for(Map.Entry<String,String> entry : headerMap.entrySet()){
+            httpost.addHeader(entry.getKey(), entry.getValue());
+        }
+
+        CloseableHttpResponse closeableHttpClient = httpClient.execute(httpost);
+        return closeableHttpClient;
+    }
 
 }

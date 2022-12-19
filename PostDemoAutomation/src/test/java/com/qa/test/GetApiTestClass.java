@@ -23,6 +23,7 @@ public class GetApiTestClass extends TestBase {
     String url;
     CloseableHttpResponse closeableHttpResponse;
 
+
     @BeforeMethod
     public void setUp() throws ClientProtocolException, IOException {
         testBase = new TestBase();
